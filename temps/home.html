@@ -1,0 +1,11 @@
+{% extends "BASE.html" %}
+
+{% block title %}Home - ALLTALE | Faith, Prayer, Reflection{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">{% endblock %}
+
+{% block content %}
+    <div class="home">
+        <h1 class="home__title">ALLTALE</h1>
+        <p class="home__subtitle">Faith, Prayer, Reflection</p>
+    </div>
+{% endblock %}

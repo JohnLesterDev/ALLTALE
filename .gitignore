@@ -16,7 +16,7 @@ sample/*
 database/*.db
 
 venv/
-.env/
+.env
 
 .vscode/
 .idea/

@@ -1,12 +1,38 @@
+from dotenv import load_dotenv
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(dotenv_path=BASE_DIR / ".env")
+
+import os
 import asyncio
-from quart import Quart, jsonify
+
+from quart import Quart, render_template
+
 from database import engine, async_session, Base, init_db
 from database import Passage, Prayer, PassageBibleLink, Seal, PassageSeal
 
-app = Quart(__name__, static_folder="res", template_folder="temps")
 
+
+app = Quart(
+    __name__, 
+    static_folder=os.path.join(BASE_DIR, "res"),
+    static_url_path="/res",
+    template_folder=os.path.join(BASE_DIR, "temps")
+    )
+
+app.config["SECRET_KEY"] = os.getenv("ALLTALE_SECRET_KEY")
+app.config['SESSION_COOKIE_NAME'] = 'alltale_biscuits_session'
+app.config['SESSION_COOKIE_HTTPONLY'] = True     
+app.config['SESSION_COOKIE_SECURE'] = True       
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'     
+
+
+@app.route("/")
+async def index():
+    return await render_template("home.html")
 
 
 if __name__ == "__main__":
     asyncio.run(init_db())
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080, debug=True)
