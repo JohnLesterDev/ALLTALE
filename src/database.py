@@ -33,6 +33,9 @@ class Session(Base):
     session_token = Column(String(64), unique=True, nullable=False)
     expire_at = Column(DateTime, nullable=False)
 
+    ip_address = Column(String(45), nullable=True)
+    user_agent = Column(String(255), nullable=True)
+
     user = relationship('User', back_populates='sessions')
 
 class Passage(Base):

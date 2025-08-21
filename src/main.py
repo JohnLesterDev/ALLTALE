@@ -12,6 +12,7 @@ from quart import Quart, render_template
 from database import engine, async_session, Base, init_db
 from database import Passage, Prayer, PassageBibleLink, Seal, PassageSeal
 
+from compose.routes import compose_bp
 
 
 app = Quart(
@@ -22,10 +23,13 @@ app = Quart(
     )
 
 app.config["SECRET_KEY"] = os.getenv("ALLTALE_SECRET_KEY")
-app.config['SESSION_COOKIE_NAME'] = 'alltale_biscuits_session'
+app.config['SESSION_COOKIE_NAME'] = 'alltale_biscuits'
 app.config['SESSION_COOKIE_HTTPONLY'] = True     
 app.config['SESSION_COOKIE_SECURE'] = True       
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'     
+
+
+app.register_blueprint(compose_bp)
 
 
 @app.route("/")
