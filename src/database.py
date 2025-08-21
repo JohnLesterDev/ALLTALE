@@ -1,9 +1,15 @@
 import os
 
+from dotenv import load_dotenv
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(dotenv_path=BASE_DIR / ".env")
+
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncAttrs
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, Boolean, DateTime, func
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, Boolean, DateTime, func, text
 
 
 Base = declarative_base(cls=AsyncAttrs)
@@ -29,12 +35,13 @@ class Session(Base):
     __tablename__ = 'session'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'), nullable=False, index=True)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=True, index=True)
     session_token = Column(String(64), unique=True, nullable=False)
     expire_at = Column(DateTime, nullable=False)
 
     ip_address = Column(String(45), nullable=True)
     user_agent = Column(String(255), nullable=True)
+    csrf_token = Column(String(64), nullable=True)
 
     user = relationship('User', back_populates='sessions')
 

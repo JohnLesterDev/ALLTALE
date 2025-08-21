@@ -12,6 +12,7 @@ from quart import Quart, render_template
 from database import engine, async_session, Base, init_db
 from database import Passage, Prayer, PassageBibleLink, Seal, PassageSeal
 
+from login.routes import login_bp
 from compose.routes import compose_bp
 
 
@@ -28,7 +29,7 @@ app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SECURE'] = True       
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'     
 
-
+app.register_blueprint(login_bp)
 app.register_blueprint(compose_bp)
 
 

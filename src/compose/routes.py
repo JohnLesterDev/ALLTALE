@@ -8,25 +8,27 @@ from database import async_session, Session as SessionModel
 
 @compose_bp.route("/")
 async def compose():
-    current_ip = request.remote_addr
-    current_ua = request.headers.get("User-Agent")
-    current_session_token = request.cookies.get("alltale_biscuits")
+    current_ip: str = request.remote_addr or ""
+    current_ua: str = request.headers.get("User-Agent") or ""
+    current_session_token: str | None = request.cookies.get("alltale_biscuits")
 
     if not current_session_token:
-        return redirect(url_for("login"))
-    
+        return redirect(url_for("login.login_get"))
+
     async with async_session() as db:
-        result: SessionModel = await db.scalar(
-            select().where(SessionModel.session_token == current_session_token)
-        )
+        stmt = select(SessionModel).where(
+            SessionModel.session_token == current_session_token
+            )
+        result: SessionModel | None = await db.scalar(stmt)
 
-    if not result or result.expire_at < datetime.now(timezone.utc):
-        return redirect(url_for("login"))
-
-    ip_not_match = result.ip_address and result.ip_address != current_ip
-    ua_not_match = result.user_agent and result.user_agent != current_ua
-
-    if ip_not_match or ua_not_match:
-        return redirect(url_for("login"))
+    if (
+        not result
+        or not result.user_id
+        or not result.user.is_active  
+        or result.expire_at < datetime.now(timezone.utc)
+        or (result.ip_address and result.ip_address != current_ip) 
+        or (result.user_agent and result.user_agent != current_ua)
+    ):
+        return redirect(url_for("login.login_get"))
 
     return await render_template("compose.html")
