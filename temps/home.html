@@ -4,8 +4,43 @@
 {% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">{% endblock %}
 
 {% block content %}
-    <div class="home">
-        <h1 class="home__title">ALLTALE</h1>
-        <p class="home__subtitle">Faith, Prayer, Reflection</p>
+    <div class="home-container">
+        <div class="items logo-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icons/no-bg/alltale-no-bg.png') }}" alt="ALLTALE Logo">
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><a href="#">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="items random-passage-modal hidden">
+            <div class="random-passage-modal-content">
+                <h3 class="passage-title">Random Passage</h3>
+                <p class="passage-text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae.
+                </p>
+                <div class="references">
+                    <a href="#">John 3:16</a>
+                    <a href="#">Psalm 23:1</a>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='scripts/home.js') }}" defer></script>
 {% endblock %}

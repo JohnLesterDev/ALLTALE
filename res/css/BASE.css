@@ -26,4 +26,7 @@ footer {
     border-radius: 0.5rem;
     font-size: 0.65rem;
     z-index: 999;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    user-select: none;
 }
