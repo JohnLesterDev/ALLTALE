@@ -7,6 +7,7 @@ body {
   animation: waveSlide 7s ease-in-out infinite;
   color: #eae5e5;
   overflow-x: hidden;
+  background-color: #000;
 }
 
 @keyframes waveSlide {
@@ -40,5 +41,5 @@ footer {
     width: 0%;
     background: rgb(183, 198, 210);
     z-index: 9999;
-    transition: width 0.2s ease-in-out;
+    transition: width 0.5s ease-in-out;
 }
