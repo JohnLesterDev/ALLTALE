@@ -1,0 +1,75 @@
+.login-main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.main-card-holder {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    border: 0.15rem solid rgba(255, 255, 255, 0.5);
+    user-select: none;
+    overflow: hidden;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.title-container img {
+    height: 7em;
+    width: auto;
+}
+
+.title-container h3 {
+    font-size: 3rem;
+    line-height: 5rem;
+    font-family: "Vollkorn", serif;
+    font-weight: 400;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.75rem;
+}
+
+.form-container label {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+    display: block;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.form-container input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.4rem;
+  font-family: inherit;
+}
+
+.btn-login {
+  margin-top: 1rem;
+  padding: 0.6rem;
+  border-radius: 0.4rem;
+  background-color: #333;
+  color: #fff;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #555;
+}

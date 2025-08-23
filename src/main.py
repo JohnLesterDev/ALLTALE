@@ -34,7 +34,7 @@ app.register_blueprint(compose_bp)
 
 
 @app.route("/")
-async def index():
+async def root_route():
     return await render_template("home.html")
 
 

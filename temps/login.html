@@ -4,4 +4,43 @@
 {% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">{% endblock %}
 
 
+{% block content %}
+<div class="login-main-container">
+    <div class="main-card-holder">
+        <div class="title-container">
+            <img src="{{ url_for('static', filename='icons/no-bg/alltale-no-bg.png') }}" alt="ALLTALE Login Logo">
+            <h3 class="title-login">ALLTALE - Login</h3>
+        </div>
+        <form action="{{ url_for('login.login_post') }}" method="POST" class="form-container">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <input type="hidden" name="sunod-next", value="{{ request.args.get('sunod', '/') }}">
 
+            <label for="username">Author</label>
+            <input 
+                type="text" 
+                name="username" 
+                id="username" 
+                placeholder="Author's Name" 
+                autocomplete="off" 
+                required 
+                >
+
+            <label for="password">Passcode</label>
+            <input 
+                type="password" 
+                name="password" 
+                id="password" 
+                placeholder="Author's Passcode" 
+                autocomplete="off" 
+                required
+                >
+            
+            <button type="submit" class="btn-login" id="btn-login">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/login.js') }}" defer>"></script>
+{% endblock %}

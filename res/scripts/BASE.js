@@ -1,3 +1,5 @@
+const loaderBar = document.querySelector('.soft-loader-bar');
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // Injects all anchors chu chu
@@ -17,8 +19,6 @@ function setLoaderWidth(percent) {
 }
 
 async function softLoad(url) {
-    const loaderBar = document.querySelector('.soft-loader-bar');
-    
     try {
         if (loaderBar) {
             loaderBar.style.width = "0%";

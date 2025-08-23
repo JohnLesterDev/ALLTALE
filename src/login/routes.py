@@ -2,7 +2,7 @@ import bcrypt
 import secrets
 
 from sqlalchemy import select
-from quart import Response, render_template, request, redirect, url_for, jsonify
+from quart import Response, redirect, url_for, render_template, request, jsonify
 from datetime import datetime, timezone, timedelta
 from typing import Optional
 
@@ -26,6 +26,9 @@ async def login_get():
             if session_row and session_row.expire_at.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc):
                 session_row = None
 
+        if session_row and session_row.user_id:
+            return redirect(url_for("root_route"))
+
         if session_row and session_row.csrf_token:
             csrf_token = session_row.csrf_token
         else:
@@ -34,7 +37,9 @@ async def login_get():
                 user_id=None,
                 session_token=secrets.token_urlsafe(32),
                 expire_at=datetime.now(timezone.utc) + timedelta(minutes=5),
-                csrf_token=csrf_token
+                csrf_token=csrf_token,
+                ip_address=request.remote_addr,
+                user_agent=request.headers.get("User-Agent")
             )
 
             db.add(temp_session)
@@ -78,7 +83,13 @@ async def login_post():
             if session_row and session_row.expire_at.replace(tzinfo=timezone.utc) < datetime.now(timezone.utc):
                 session_row = None
 
-        if not session_row or not csrf_token or csrf_token != getattr(session_row, "csrf_token", None):
+        if (
+            not session_row
+            or not csrf_token
+            or csrf_token != getattr(session_row, "csrf_token", None)
+            or session_row.ip_address != request.remote_addr
+            or session_row.user_agent != request.headers.get("User-Agent")
+            ):
             return jsonify({"success": False, "message": "Unable to process login request."}), 403
         
         stmt = select(UserModel).where(UserModel.username == username)
@@ -98,8 +109,19 @@ async def login_post():
         await db.commit()
         await db.refresh(session_row)
 
-        return jsonify({
+        response = jsonify({
             "success": True,
-            "session_token": new_alltale_biscuits,
-            "csrf_token": session_row.csrf_token
-            }), 200
+            "csrf_token": session_row.csrf_token,
+            "redirect": form.get("sunod-next", "/")
+            })
+
+        response.set_cookie(
+            "alltale_biscuits", 
+            new_alltale_biscuits, 
+            max_age=3600, 
+            samesite="Lax",
+            httponly=True
+            )
+
+        return response
+    
