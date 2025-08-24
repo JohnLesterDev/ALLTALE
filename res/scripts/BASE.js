@@ -23,7 +23,6 @@ function sleep(ms) {
 }
 
 async function setLoaderWidth(percent) {
-    console.log(percent);
     if (loaderBar) loaderBar.style.width = percent + "%";
 }
 

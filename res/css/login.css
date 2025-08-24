@@ -23,11 +23,13 @@
     display: flex;
     align-items: center;
     gap: 0.7rem;
+    margin: 2rem 1.3rem;
 }
 
 .title-container img {
     height: 7em;
     width: auto;
+    cursor: pointer;
 }
 
 .title-container h3 {
@@ -35,6 +37,8 @@
     line-height: 5rem;
     font-family: "Vollkorn", serif;
     font-weight: 400;
+    padding: 0 0.8rem;
+    margin: 0;
 }
 
 .form-container {
@@ -44,32 +48,92 @@
   gap: 0.75rem;
 }
 
+/* For Accessibility reasons */
 .form-container label {
-  font-family: 'Lora', serif;
-  font-weight: 500;
-    display: block;
-  text-align: center;
-  margin-bottom: 0.25rem;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }
 
-.form-container input {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.4rem;
+.input-w-icon {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.input-w-icon input {
+  flex: 1;
+  height: 1.7rem;
+  background-color: transparent;
+  margin-bottom: 2rem;
+  border: none;
+  border-bottom: 0.15rem solid rgb(160, 167, 160);
+  border-radius: 0.4em;
+  color: aliceblue;
+  padding: 0.5rem 0.25rem;
   font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  outline: none;
+  user-select: none;
+  transition: border-bottom-color 0.2s;
+}
+
+.input-w-icon :-webkit-autofill,
+.input-w-icon :-webkit-autofill:hover,
+.input-w-icon :-webkit-autofill:focus,
+.input-w-icon :-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important; 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: aliceblue !important;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 500;
+    user-select: none;
+}
+
+.input-w-icon input::placeholder {
+  color: #9f9c9c;
+  opacity: 0.8;
+}
+
+.input-w-icon input:focus {
+  border-bottom-color: #fff;
+}
+
+.input-icon-username, .input-icon-password {
+  height: 2.5rem;
+  width: auto;
+  color: aliceblue;
+  opacity: 0.8;
+  margin-bottom: 1.4rem;
 }
 
 .btn-login {
+  align-self: center;
+  width: 20%;
   margin-top: 1rem;
   padding: 0.6rem;
+  border: none;
+  border-left: 2px solid aliceblue;
+  border-right: 2px solid aliceblue;
   border-radius: 0.4rem;
-  background-color: #333;
-  color: #fff;
+  background: transparent;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  color: aliceblue;
   font-family: inherit;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: width 0.4s cubic-bezier(0,.31,0,1), font-size 0.4s cubic-bezier(0,.31,0,1);
 }
 
 .btn-login:hover {
-  background-color: #555;
+  width: 75%;
+  font-size: 1.3rem;
 }

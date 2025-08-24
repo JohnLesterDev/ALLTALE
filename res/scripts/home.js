@@ -1,4 +1,4 @@
-function main() {
+function main_home() {
     const mnCont = document.querySelector('.home-container');
     const logo = document.querySelector('.logo');
     const mainNavLinks = document.querySelectorAll('.main-nav ul li a');
@@ -14,4 +14,4 @@ function main() {
     });
 }
 
-main();
+main_home();

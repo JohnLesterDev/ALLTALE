@@ -1,25 +1,35 @@
-const form = document.querySelector('.form-container');
+function main_login(){
+    document.querySelector("#alltale-logo").addEventListener('click', async () => {
+        await softLoad('/');
+    })
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    document.querySelector("#username").focus();
 
-    const data = new FormData(form);
+    const form = document.querySelector('.form-container');
 
-    try {
-        const res = await fetch(form.action, {
-            method: form.method,
-            headers: { "X-Requested-With": "XMLHttpRequest" },
-            body: data
-        });
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-        const json_res = await res.json();
+        const data = new FormData(form);
 
-        if (json_res.success) {
-            await softLoad(json_res.redirect || '/');
-        } else {
-            console.error("Login failed:", json_res.message);
+        try {
+            const res = await fetch(form.action, {
+                method: form.method,
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+                body: data
+            });
+
+            const json_res = await res.json();
+
+            if (json_res.success) {
+                await softLoad(json_res.redirect || '/');
+            } else {
+                console.error("Login failed:", json_res.message);
+            }
+        } catch (err) {
+            console.error("Fetch error:", err);
         }
-    } catch (err) {
-        console.error("Fetch error:", err);
-    }
-});
+    });
+}
+
+main_login();
