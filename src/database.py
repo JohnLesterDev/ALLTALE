@@ -9,7 +9,7 @@ load_dotenv(dotenv_path=BASE_DIR / ".env")
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncAttrs
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, Boolean, DateTime, func, text
+from sqlalchemy import Column, ForeignKey, Integer, String, Text, Boolean, DateTime, func, select, text
 
 
 Base = declarative_base(cls=AsyncAttrs)
@@ -44,6 +44,32 @@ class Session(Base):
     csrf_token = Column(String(64), nullable=True)
 
     user = relationship('User', back_populates='sessions')
+
+
+OT_BOOKS = {
+    "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth",
+    "1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles",
+    "Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon",
+    "Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah",
+    "Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi"
+}
+
+translations_path = [
+    "res/scriptures/en/kjv.json",
+    "res/scriptures/en/web.json",
+    "res/scriptures/tl/tagab.json"
+]
+class Scriptures(Base):
+    __tablename__ = "scriptures"
+
+    translation = Column(String(10), primary_key=True)
+    book_index = Column(Integer, primary_key=True)
+    chapter = Column(Integer, primary_key=True)
+    verse = Column(Integer, primary_key=True)
+    book_name = Column(String(50), nullable=False, index=True)
+    text = Column(Text, nullable=False)
+    testament = Column(String(2), nullable=False, index=True)
+
 
 class Passage(Base):
     __tablename__ = 'passage'

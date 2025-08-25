@@ -11,7 +11,7 @@
             <img src="{{ url_for('static', filename='icons/no-bg/alltale-no-bg.png') }}" alt="ALLTALE Login Logo" id="alltale-logo">
             <h3 class="title-login">ALLTALE</h3>
         </div>
-        <form action="{{ url_for('login.login_post') }}" method="POST" class="form-container">
+        <form action="{{ url_for('login.login_post') }}" method="POST" class="form-container" novalidate>
             <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <input type="hidden" name="sunod-next", value="{{ request.args.get('sunod', '/') }}">
 
@@ -55,5 +55,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='scripts/login.js') }}" defer>"></script>
+<script src="{{ url_for('static', filename='scripts/login.js') }}" defer></script>
 {% endblock %}

@@ -1,0 +1,81 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+.message-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 0.5rem;
+
+  transition: gap 0.6s ease-out;
+}
+
+.message-container img {
+  height: 20vh;
+  width: auto;
+  opacity: 0;
+  transform-origin: center bottom;
+  cursor: pointer;
+  animation: imgGrow 1s cubic-bezier(0,.98,0,.99) both;
+}
+
+.message-container img.highlighted {
+  animation: imgGrow 1s cubic-bezier(0,.98,0,.99) both, 
+  blinks 1s linear infinite alternate 1s;
+}
+
+@keyframes imgGrow {
+  from {transform: scale(0) translateY(60vh); opacity: 0.4;}
+  to { transform: scale(1) translateY(0); opacity: 1;}
+}
+
+@keyframes blinks {
+  from {opacity: 1;}
+  to {opacity: 0.6;}
+}
+
+.error-message {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+  color: aliceblue;
+  position: relative;
+}
+
+.error-message.cursor-visible::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background-color: aliceblue;
+  opacity: 0;                  
+  transition: opacity 0.3s ease;
+  animation: blink_cursor 1s step-end infinite;
+}
+
+.error-message span {
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}
+.error-message span.visible {
+  opacity: 1;
+}
+
+@keyframes blink_cursor {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75%      { opacity: 0; }
+}

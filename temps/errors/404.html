@@ -1,0 +1,17 @@
+{% extends "BASE.html" %}
+
+{% block title %}404 - ALLTALE | Faith, Prayer, Reflection{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="{{ url_for('static', filename='css/errors/404.css') }}">{% endblock %}
+
+{% block content %}
+    <div class="error-container">
+        <div class="message-container">
+            <img src="{{ url_for('static', filename='icons/no-bg/alltale-no-bg.png') }}" alt="ALLTALE Logo">
+            <h2 class="error-message"></h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/errors/404.js') }}" defer></script>
+{% endblock %}
